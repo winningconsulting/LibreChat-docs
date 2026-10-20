@@ -436,7 +436,7 @@ For UI-created, shared servers using `apiKey.source: user`, saved keys are bound
 #### `persistResourceBlobs`
 
 - **Type:** Boolean (Optional)
-- **Description:** When `true`, LibreChat validates embedded MCP resource blobs from this server's tool results and persists them as conversation file attachments. Base64 payload bytes are removed from the content delivered to the model; only stored file metadata is emitted on the stream. Off by default. Operator YAML / admin configuration only — omitted from user-created MCP server input. Enable only for trusted servers that return allowlisted document blobs (PDF, PPTX, XLSX).
+- **Description:** When `true`, LibreChat validates embedded MCP resource blobs from this server's tool results with the same [`fileConfig`](/docs/configuration/librechat_yaml/object_structure/file_config) admission rules as conversation uploads (`supportedMimeTypes`, `fileSizeLimit` / `serverFileSizeLimit`, `fileLimit`) and persists them as file attachments. Base64 payload bytes are removed from the content delivered to the model; only stored file metadata is emitted on the stream. Off by default. Operator YAML / admin configuration only — omitted from user-created MCP server input. Enable only for trusted servers.
 - **Default Value:** `false` / omitted (no persistence; current behavior)
 - **Example:**
 

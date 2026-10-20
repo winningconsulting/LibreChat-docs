@@ -347,7 +347,7 @@ mcpServers:
     persistResourceBlobs: true
 ```
 
-When enabled, LibreChat validates each blob (allowlisted MIME types for PDF, PPTX, and XLSX; matching extension; path-safe filename; size and count limits; PDF or ZIP signature), stores the file with the configured file strategy, and attaches only file metadata to the conversation stream. The base64 payload is stripped before the model sees the tool result. The flag is off by default and is not accepted on user-created MCP server input. See [`persistResourceBlobs`](/docs/configuration/librechat_yaml/object_structure/mcp_servers#persistresourceblobs) for the full option reference.
+When enabled, LibreChat admits each blob with the same [`fileConfig`](/docs/configuration/librechat_yaml/object_structure/file_config) rules used for conversation uploads (`supportedMimeTypes`, `fileSizeLimit` / `serverFileSizeLimit`, and `fileLimit`), keeps path-safe filenames, stores the file with the configured file strategy, and attaches only file metadata to the conversation stream. The base64 payload is stripped before the model sees the tool result. The flag is off by default and is not accepted on user-created MCP server input. See [`persistResourceBlobs`](/docs/configuration/librechat_yaml/object_structure/mcp_servers#persistresourceblobs) for the full option reference.
 
 ### Server Instructions
 
