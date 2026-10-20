@@ -335,6 +335,20 @@ Trusted operators can use `Authorization: 'Bearer {{LIBRECHAT_OPENID_ACCESS_TOKE
 
 The `{{LIBRECHAT_BODY_PARENTMESSAGEID}}` placeholder is populated for native Agent chats, OpenAI-compatible Agents API calls, and legacy Assistants runs. Open Responses has no equivalent parent-message identity and fails closed when an MCP server requires that value. See the [MCP server placeholder reference](/docs/configuration/librechat_yaml/object_structure/mcp_servers#headers).
 
+### Persisting Resource Blobs as Attachments
+
+Some MCP tools return files as embedded resource blobs (base64) in the tool result. By default LibreChat leaves those bytes in the tool content path. Operators can opt a **trusted**, YAML- or admin-configured server into native attachments with `persistResourceBlobs: true`:
+
+```yaml
+mcpServers:
+  trusted-docs:
+    type: streamable-http
+    url: https://mcp.example.com/docs
+    persistResourceBlobs: true
+```
+
+When enabled, LibreChat validates each blob (allowlisted MIME types for PDF, PPTX, and XLSX; matching extension; path-safe filename; size and count limits; PDF or ZIP signature), stores the file with the configured file strategy, and attaches only file metadata to the conversation stream. The base64 payload is stripped before the model sees the tool result. The flag is off by default and is not accepted on user-created MCP server input. See [`persistResourceBlobs`](/docs/configuration/librechat_yaml/object_structure/mcp_servers#persistresourceblobs) for the full option reference.
+
 ### Server Instructions
 
 `serverInstructions` is a LibreChat feature that dynamically adds configured instructions when any tool from that MCP server is selected:

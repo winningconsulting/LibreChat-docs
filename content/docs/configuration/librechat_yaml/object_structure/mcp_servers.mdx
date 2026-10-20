@@ -433,6 +433,20 @@ For UI-created, shared servers using `apiKey.source: user`, saved keys are bound
 - **Description:** When set to `false`, excludes the MCP server from the regular chat picker and picker-supplied chat requests. It remains available to saved Agents and model specs that explicitly assign it.
 - **Default Value:** `true` (The MCP server can be selected in regular chat)
 
+#### `persistResourceBlobs`
+
+- **Type:** Boolean (Optional)
+- **Description:** When `true`, LibreChat validates embedded MCP resource blobs from this server's tool results and persists them as conversation file attachments. Base64 payload bytes are removed from the content delivered to the model; only stored file metadata is emitted on the stream. Off by default. Operator YAML / admin configuration only — omitted from user-created MCP server input. Enable only for trusted servers that return allowlisted document blobs (PDF, PPTX, XLSX).
+- **Default Value:** `false` / omitted (no persistence; current behavior)
+- **Example:**
+
+  ```yaml
+  trusted-docs:
+    type: streamable-http
+    url: https://mcp.example.com/docs
+    persistResourceBlobs: true
+  ```
+
 #### `serverInstructions`
 
 - **Type:** Boolean or String (Optional)
